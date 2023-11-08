@@ -19,10 +19,7 @@ import javax.persistence.UniqueConstraint;
 
 import javax.persistence.JoinColumn;
 
-/**
- * @author DongTHD
- *
- */
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
