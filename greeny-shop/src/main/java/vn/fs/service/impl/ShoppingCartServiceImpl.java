@@ -66,4 +66,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public void remove(Product product) {
 
 	}
+
+	public CartItem getCartItem(Long productId) {
+		return map.get(productId);
+	}
+
+	public void updateCartItem(CartItem cartItem) {
+		// Lưu lại CartItem đã cập nhật vào map
+		map.put(cartItem.getId(), cartItem);
+	}
+
 }

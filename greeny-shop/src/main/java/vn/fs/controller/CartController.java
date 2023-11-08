@@ -15,10 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
@@ -291,6 +288,18 @@ public class CartController extends CommomController {
 
 		return "web/checkout_paypal_success";
 
+	}
+
+
+	@PostMapping("/updateCart")
+	public String updateCart(@RequestParam Long productId, @RequestParam int quantity) {
+		CartItem cartItem = shoppingCartService.getCartItem(productId);
+		if (cartItem != null) {
+			cartItem.setQuantity(quantity);
+//			cartItem.setTotalPrice(cartItem.getUnitPrice() * quantity);
+			shoppingCartService.updateCartItem(cartItem);
+		}
+		return "redirect:/shoppingCart_checkout";
 	}
 
 }
