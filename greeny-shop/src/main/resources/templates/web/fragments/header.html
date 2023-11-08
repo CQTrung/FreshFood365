@@ -174,43 +174,70 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				<h5 style="color: #119744">Hãy mua sắm đi nào!</h5>
 				<a th:href="@{/products}" style="text-decoration: underline;">Click tại đây!</a>
 			</div>
-			
+
 			<th:block th:if="${totalCartItems!=0}">
-			<ul class="cart-list">
-				<li class="cart-item" th:each="item : ${cartItems}">
-					<div class="cart-media">
-						<a th:href="@{/productDetail(id=${item.product.productId})}">
-							<img th:src="@{'/loadImage?imageName='+${item.product.productImage}}" alt="product" />
-						</a>
-					</div>
-					<div class="cart-info-group">
-						<div class="cart-info">
-							<h6>
-								<label>Tên sản phẩm :</label>
-								<a th:href="@{/productDetail(id=${item.product.productId})}" style="color: #119744">[[${item.product.productName}]]</a>
-							</h6>
-							<label>Đơn giá :</label>
-							<p>[[${#numbers.formatDecimal(item.product.price - (item.product.price * item.product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</p>
+				<ul class="cart-list">
+					<li class="cart-item" th:each="item : ${cartItems}">
+						<div class="cart-media">
+							<a th:href="@{/productDetail(id=${item.product.productId})}">
+								<img th:src="@{'/loadImage?imageName='+${item.product.productImage}}" alt="product" />
+							</a>
 						</div>
-						<div class="cart-action-group">
-							<div class="product-action">
-								<label>Số lượng :</label>
-								<input class="action-input" title="Quantity Number" type="text"
-									name="quantity" th:value="${item.quantity}" />
+						<div class="cart-info-group">
+							<div class="cart-info">
+								<h6>
+									<label>Tên sản phẩm :</label>
+									<a th:href="@{/productDetail(id=${item.product.productId})}" style="color: #119744" th:text="${item.product.productName}">Product Name</a>
+								</h6>
+								<label>Đơn giá :</label>
+								<p th:text="${#numbers.formatDecimal(item.product.price - (item.product.price * item.product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT') + ' đ'}">Price</p>
 							</div>
-							<h6>[[${#numbers.formatDecimal((item.product.price - (item.product.price * item.product.discount/100)) * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')}+ ' đ']]</h6>
+							<div class="cart-action-group">
+								<div class="product-action">
+									<label>Số lượng :</label>
+									<input class="action-input" title="Quantity Number" type="text"
+										   name="quantity" th:value="${item.quantity}" id="quantity_${item.product.productId}" />
+								</div>
+								<h6 th:text="${#numbers.formatDecimal((item.product.price - (item.product.price * item.product.discount/100)) * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT') + ' đ'}">Total Price</h6>
+							</div>
 						</div>
-					</div>
-				</li>
-			</ul>
-			<div class="cart-footer">
-				<a class="cart-checkout-btn" th:href="@{/checkout}"><span
-					class="checkout-label">Thanh Toán</span>
-				</a>
-			</div>
+						<div class="cart-update-button">
+							<button type="button" style="background-color: #0A5A97" onclick="updateCartItem(${item.product.productId})">Cập nhật</button>
+						</div>
+					</li>
+				</ul>
+				<div class="cart-footer">
+					<a class="cart-checkout-btn" th:href="@{/checkout}"><span
+							class="checkout-label">Thanh Toán</span>
+					</a>
+				</div>
 			</th:block>
+
+			<script th:inline="javascript">
+				function updateCartItem(productId) {
+					var quantity = document.getElementById("quantity_" + productId).value;
+					// Gửi yêu cầu cập nhật số lượng thông qua AJAX
+					var xhr = new XMLHttpRequest();
+					xhr.open("POST", "/updateCart", true);
+					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					xhr.onreadystatechange = function () {
+						if (xhr.readyState === 4 && xhr.status === 200) {
+							// Xử lý kết quả sau khi cập nhật giỏ hàng
+							// Ví dụ: cập nhật tổng số tiền hoặc hiển thị thông báo
+							var response = xhr.responseText;
+							// Dựa vào response để xử lý kết quả (nếu cần)
+						}
+					};
+
+					// Tạo dữ liệu cần gửi
+					var data = "productId=" + productId + "&quantity=" + quantity;
+
+					// Gửi dữ liệu
+					xhr.send(data);
+				}
+			</script>
 		</aside>
-		
+
 	</th:block>
 </body>
 </html>
