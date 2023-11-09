@@ -103,6 +103,46 @@ public class CartController extends CommomController {
 		return "redirect:/products";
 	}
 
+	//them so luong hang
+
+	@GetMapping(value = "/increase/{id}")
+	public String increaseItem(@PathVariable("id") Long id, HttpServletRequest request, Model model){
+		Product product = productRepository.findById(id).orElse(null);
+
+		Collection<CartItem> cartItems = shoppingCartService.getCartItems();
+		session = request.getSession();
+		if (product != null) {
+			cartItems.forEach(item -> {
+				if(item.getProduct().getProductId() == id) {
+					item.setQuantity(item.getQuantity() + 1);
+					shoppingCartService.updateCartItem(item);
+				}
+			});
+		}
+		model.addAttribute("totalCartItems", shoppingCartService.getCount());
+		return "redirect:/checkout";
+	}
+
+	@GetMapping(value = "/decrease/{id}")
+	public String decreaseItem(@PathVariable("id") Long id, HttpServletRequest request, Model model){
+		Product product = productRepository.findById(id).orElse(null);
+
+		Collection<CartItem> cartItems = shoppingCartService.getCartItems();
+		session = request.getSession();
+		if (product != null) {
+			cartItems.forEach(item -> {
+				if(item.getProduct().getProductId() == id) {
+					if(item.getQuantity() > 1) {
+						item.setQuantity(item.getQuantity() - 1);
+						shoppingCartService.updateCartItem(item);
+					}
+				}
+			});
+		}
+		model.addAttribute("totalCartItems", shoppingCartService.getCount());
+		return "redirect:/checkout";
+	}
+
 	// delete cartItem
 	@SuppressWarnings("unlikely-arg-type")
 	@GetMapping(value = "/remove/{id}")
