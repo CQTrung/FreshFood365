@@ -235,11 +235,19 @@ public class CartController extends CommomController {
 
 		for (CartItem cartItem : cartItems) {
 			OrderDetail orderDetail = new OrderDetail();
+			if (cartItem.getQuantity() > cartItem.getProduct().getQuantity()) {
+				// If quantity is invalid, return an error message to the user
+				model.addAttribute("quantityError", "Số lượng sản phẩm '" + cartItem.getProduct().getProductName() + "' không khả dụng.");
+				return "web/shoppingCart_checkout"; // replace with your actual checkout page template name
+			}
 			orderDetail.setQuantity(cartItem.getQuantity());
 			orderDetail.setOrder(order);
 			orderDetail.setProduct(cartItem.getProduct());
 			double unitPrice = cartItem.getProduct().getPrice();
 			orderDetail.setPrice(unitPrice);
+			int qty = cartItem.getProduct().getQuantity();
+			cartItem.getProduct().setQuantity(qty - cartItem.getQuantity());
+			productRepository.save(cartItem.getProduct());
 			orderDetailRepository.save(orderDetail);
 		}
 

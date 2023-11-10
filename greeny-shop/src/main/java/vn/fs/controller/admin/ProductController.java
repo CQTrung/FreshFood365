@@ -98,7 +98,6 @@ public class ProductController{
 		} catch (IOException e) {
 
 		}
-
 		product.setProductImage(file.getOriginalFilename());
 		Product p = productRepository.save(product);
 		if (null != p) {
@@ -124,7 +123,6 @@ public class ProductController{
 	@GetMapping(value = "/editProduct/{id}")
 	public String editCategory(@PathVariable("id") Long id, ModelMap model) {
 		Product product = productRepository.findById(id).orElse(null);
-		
 		model.addAttribute("product", product);
 
 		return "admin/editProduct";

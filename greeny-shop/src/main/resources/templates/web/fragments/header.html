@@ -201,9 +201,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 								<h6 th:text="${#numbers.formatDecimal((item.product.price - (item.product.price * item.product.discount/100)) * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT') + ' đ'}">Total Price</h6>
 							</div>
 						</div>
-						<div class="cart-update-button">
-							<button type="button" style="background-color: #0A5A97" onclick="updateCartItem(${item.product.productId})">Cập nhật</button>
-						</div>
 					</li>
 				</ul>
 				<div class="cart-footer">
@@ -212,30 +209,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 					</a>
 				</div>
 			</th:block>
-
-			<script th:inline="javascript">
-				function updateCartItem(productId) {
-					var quantity = document.getElementById("quantity_" + productId).value;
-					// Gửi yêu cầu cập nhật số lượng thông qua AJAX
-					var xhr = new XMLHttpRequest();
-					xhr.open("POST", "/updateCart", true);
-					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-					xhr.onreadystatechange = function () {
-						if (xhr.readyState === 4 && xhr.status === 200) {
-							// Xử lý kết quả sau khi cập nhật giỏ hàng
-							// Ví dụ: cập nhật tổng số tiền hoặc hiển thị thông báo
-							var response = xhr.responseText;
-							// Dựa vào response để xử lý kết quả (nếu cần)
-						}
-					};
-
-					// Tạo dữ liệu cần gửi
-					var data = "productId=" + productId + "&quantity=" + quantity;
-
-					// Gửi dữ liệu
-					xhr.send(data);
-				}
-			</script>
 		</aside>
 
 	</th:block>
