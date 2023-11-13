@@ -342,7 +342,12 @@
 						<li th:each="item : ${productList}">
 							<div class="product-card">
 								<div class="product-media">
-									<div class="product-label">
+									<label class="label-text feat">mới</label>
+									<div th:if="${item.discount != 0}" class="product-label">
+										<label class="label-text new">mới</label>
+										<label class="label-text sale">- [[${item.discount + '%'}]]</label>
+									</div>
+									<div th:if="${item.discount == 0}" style="display: none;">
 										<label class="label-text new">mới</label>
 										<label class="label-text sale">- [[${item.discount + '%'}]]</label>
 									</div>
