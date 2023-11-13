@@ -1265,8 +1265,8 @@ tbody tr td:last-child {
   }
 }
 .modal-dialog {
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
+  /*max-width: -webkit-max-content;*/
+  /*max-width: -moz-max-content;*/
   max-width: max-content;
 }
 .modal-content {
