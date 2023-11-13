@@ -132,10 +132,17 @@
 						<li th:each="item : ${bestSaleProduct20}">
 							<div class="product-card">
 								<div class="product-media">
-									<div class="product-label">
+
 										<label class="label-text new">bán chạy</label>
-										<label class="label-text sale">- [[${item.discount + '%'}]]</label>
-									</div>
+										<div th:if="${item.discount != 0}" class="product-label">
+											<label class="label-text new">bán chạy</label>
+											<label class="label-text sale">- [[${item.discount + '%'}]]</label>
+										</div>
+										<div th:if="${item.discount == 0}" style="display: none;">
+											<label class="label-text new">bán chạy</label>
+											<label class="label-text sale">- [[${item.discount + '%'}]]</label>
+										</div>
+
 									<button class="product-wish wish">
 										<i class="fas fa-heart"></i>
 									</button>
@@ -221,10 +228,15 @@
 						<li th:each="item : ${bestSaleProduct20}">
 							<div class="product-card">
 								<div class="product-media">
-									<div class="product-label">
 										<label class="label-text feat">nổi bật</label>
-										<label class="label-text sale">- [[${item.discount + '%'}]]</label>
-									</div>
+										<div th:if="${item.discount != 0}" class="product-label">
+											<label class="label-text feat">nổi bật</label>
+											<label class="label-text sale">- [[${item.discount + '%'}]]</label>
+										</div>
+										<div th:if="${item.discount == 0}" style="display: none;">
+											<label class="label-text feat">nổi bật</label>
+											<label class="label-text sale">- [[${item.discount + '%'}]]</label>
+										</div>
 									<button class="product-wish wish">
 										<i class="fas fa-heart"></i>
 									</button>

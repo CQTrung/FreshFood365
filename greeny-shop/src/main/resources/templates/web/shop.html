@@ -90,11 +90,15 @@
               <div class="col" th:each="item : ${products}">
                 <div class="product-card">
                   <div class="product-media">
-                    <div class="product-label">
-                      <label class="label-text sale">- [[${item.discount + '%'}]]</label>
-                    </div>
-                   
-                   		<th:block th:if="${user.email != null}">
+
+					  <div th:if="${item.discount != 0}" class="product-label">
+						  <label class="label-text sale">- [[${item.discount + '%'}]]</label>
+					  </div>
+					  <div th:if="${item.discount == 0}" style="display: none;">
+						  <label class="label-text sale">- [[${item.discount + '%'}]]</label>
+					  </div>
+
+					  <th:block th:if="${user.email != null}">
 		                    <button class="product-wish" th:if="${item.favorite} == false">
 		                      <i class="fas fa-heart"></i>
 		                    </button>
