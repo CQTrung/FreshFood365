@@ -244,7 +244,7 @@
 										<img th:src="@{'/loadImage?imageName='+${item.productImage}}" alt="product" />
 										</a>
 									<div class="product-widget">
-										
+
 										<a
 											title="Product Video"
 											href="https://www.youtube.com/watch?v=kpE58PW-08o"
@@ -267,7 +267,7 @@
 										<i class="active icofont-star"></i>
 										<i class="icofont-star"></i>
 									</div>
-									
+
 									<h6 class="product-name">
 										<a th:href="@{/productDetail(id=${item.productId})}">[[${item.productName}]]</a>
 									</h6>
@@ -278,7 +278,7 @@
 									<a class="product-add1" title="Thêm giỏ hàng" th:href="@{/addToCart(productId=${item.productId})}">
 										<i class="fas fa-shopping-basket"></i><span>Thêm giỏ hàng</span>
 									</a>
-									
+
 								</div>
 							</div>
 						</li>
@@ -301,9 +301,8 @@
 				<div class="col-lg-6 mx-auto">
 					<div class="countdown-content">
 						<h3>ƯU ĐÃI GIẢM GIÁ ĐẶC BIỆT CHO CÁC MẶT HÀNG</h3>
-						<p>Reprehenderit sed quod autem molestiae aut modi minus
-							veritatis iste dolorum suscipit quis voluptatum fugiat mollitia
-							quia minima</p>
+						<p>Hãy nhanh tay mua sắm trong ngày giảm giá đặc biệt của cửa hàng chúng tôi nhé.
+						Chương trình ưu đãi đặc biệt 1 năm diễn ra 1 lần. </p>
 						<div class="countdown countdown-clock" data-countdown="2023/12/22">
 							<span class="countdown-time"><span>00</span><small>days</small></span><span
 								class="countdown-time"><span>00</span><small>hours</small></span><span
@@ -510,15 +509,16 @@
 			<div class="row align-items-center">
 				<div class="col-md-5 col-lg-6 col-xl-7">
 					<div class="news-text">
-						<h2>Nhận Chiết Khấu 20% Cho Người Đăng Ký</h2>
-						<p>Nhận Chiết Khấu 20% Cho Người Đăng Ký</p>
+						<h2>Thực phẩm sạch - Sức khỏe vàng</h2>
+						<p>Sức khỏe luôn là vấn đề cấp thiết quan tâm hàng đầu trong cuộc sống mỗi người.</p>
 					</div>
 				</div>
 				<div class="col-md-7 col-lg-6 col-xl-5">
 					<form class="news-form">
-						<input type="text" placeholder="Nhập Địa Chỉ Email Của Bạn" />
+						<input type="text" placeholder="Tạo tài khoản để mua hàng bạn nhé!" />
 						<button>
-							<span><i class="icofont-ui-email"></i>Gửi</span>
+							<span><i class="icofont-ui-email"><a th:href="@{/register}" th:style="'color: white;'">Đăng ký</a></i></span>
+<!--							<span><i class="icofont-ui-email"><a th:href="@{/register}" th:color="white">Đăng ký</a></i></span>-->
 						</button>
 					</form>
 				</div>
