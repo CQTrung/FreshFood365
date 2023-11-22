@@ -252,7 +252,7 @@ public class CartController extends CommomController {
 		}
 
 		// sendMail
-		commomDataService.sendSimpleEmail(user.getEmail(), "Greeny-Shop Xác Nhận Đơn hàng", "aaaa", cartItems,
+		commomDataService.sendSimpleEmail(user.getEmail(), "FreshFood365-Shop Xác Nhận Đơn hàng", "aaaa", cartItems,
 				totalPrice, order);
 
 		shoppingCartService.clear();
